@@ -1,6 +1,28 @@
 
 .row
-	a(href="#").btn.btn-default New Tour 
+button.btn.btn-primary( data-toggle="modal", role='button', data-target="#createPlace") Agregar Lugar
+#createPlace.modal.fade(tabindex='-1', role="dialog", aria-labelledby='myModalLabel' aria-hidden='true')
+	.modal-dialog
+		.modal-content
+			.modal-header(style="text-align:center;")
+				button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+				h3 Agregar Lugar
+			.modal-body(style="text-center;")
+				form#placeForm(action="/partners/new", method="post")   
+					input.form-control(name="name", type="text", placeHolder="Nombre Lugar")
+					br
+					input.form-control(name="email", type="text", placeHolder="Email")
+					br
+					input.form-control(name="password", type="text", placeHolder="Temporal Password")
+					br
+					input.form-control(name="address", type="text", placeHolder="Address")
+					br
+					input.form-control(name="phone_number", type="text", placeHolder="Phone")
+					br
+					input.form-control(name="refcode", type="text", placeHolder="Codigo Referencia")
+					br
+					input.form-control(name="branch", type="hidden", value="places")
+					button.form-control.btn.btn-primary(type="submit") Agregar 	
 
 
 table.table
@@ -17,10 +39,43 @@ table.table
 	if results 
 		for result in results 
 			tr
-				td #{result.title}
+				td 
+					a(href="/tours/#{result._id}") #{result.title}
 				td Kayak
 				td Arequipa
 				td 
-					a(href="#").btn.btn-default Edit
-					a(href="#").btn.btn-danger Delete 
+					button.btn.btn-default( data-toggle="modal", role='button', data-target="#editPlace#{result._id}") Editar
+					.modal.fade(tabindex='-1', role="dialog", aria-labelledby='myModalLabel' aria-hidden='true', id="editPlace#{result._id}")
+						.modal-dialog
+							.modal-content
+								.modal-header(style="text-align:center;")
+									button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+									h3 Agregar Promotor
+								.modal-body(style="text-center;")
+									form#placeForm(action="/partners/edit/#{result._id}", method="post")  
+										.input-group
+											span.input-group-addon Name
+											input.form-control(name="name", type="text", value="#{result.name}")
+										br
+										.input-group
+											span.input-group-addon Email
+											input.form-control(name="email", type="text", value="#{result.email}")
+										br
+										
+										.input-group
+											span.input-group-addon Address
+											input.form-control(name="address", type="text", value="#{}")
+										br
+										.input-group
+											span.input-group-addon Phone Number
+											input.form-control(name="phone_number", type="text", value="#{}")
+										br
+										.input-group
+											span.input-group-addon Codigo referencia
+											input.form-control(name="refcode", type="text", value="#{result.refcode}")
+										br
+										input.form-control(name="branch", type="hidden", value="places")
+										button.form-control.btn.btn-primary(type="submit") Agregar
+
+					a(href="tours/delete/#{result._id}").btn.btn-danger Delete 
 

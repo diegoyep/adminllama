@@ -111,6 +111,17 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 /**
+* Tours REST routes
+*/
+
+
+app.get('/tours/:id')
+app.post('/tours/new');
+app.post('/tours/edit/:id')
+app.get('/tours/delete/:id')
+
+
+/**
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
