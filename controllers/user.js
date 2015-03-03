@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
+var Tour = require('../models/Tour');
 var secrets = require('../config/secrets');
 
 /**
@@ -41,7 +42,16 @@ exports.postLogin = function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      Tour.find({}, function(err, docs){
+          if(err){
+          console.log("Error");
+          return res.redirect('/');
+        }
+          console.log(docs);
+          req.session.results = docs;
+          res.redirect(req.session.returnTo || '/');
+
+      });
     });
   })(req, res, next);
 };

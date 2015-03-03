@@ -1,4 +1,7 @@
 extends layout
 
 block content
-  include account/login
+	if !user 
+		include account/login
+	else
+		include partials/tourtable

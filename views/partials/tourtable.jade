@@ -1,0 +1,26 @@
+
+.row
+	a(href="#").btn.btn-default New Tour 
+
+
+table.table
+	caption Tour list
+
+	thead
+		tr
+			th Title
+			th Location
+			th Type
+			th Actions
+	tbody		
+
+	if results 
+		for result in results 
+			tr
+				td #{result.title}
+				td Kayak
+				td Arequipa
+				td 
+					a(href="#").btn.btn-default Edit
+					a(href="#").btn.btn-danger Delete 
+
